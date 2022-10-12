@@ -4,7 +4,7 @@
     <div class="jumbotron">
         <h1>Tic-Tac-Toe</h1>
         <p class="lead">Free to play Tic-Tac-Toe</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <p><a runat="server" href="~/About">How to play >> </a></p>
     </div>
    
     <div class="row">

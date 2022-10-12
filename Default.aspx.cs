@@ -6,6 +6,7 @@ using System.Linq;
 using System.ServiceModel.Channels;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 public partial class _Default : Page
@@ -32,7 +33,10 @@ public partial class _Default : Page
         switch (Menu1.SelectedItem.Text)
         {
             case "New Game":
-                
+                turn = true;
+                counter = 0;
+                EnableForm(Page.Controls);
+                NewGameForm(Page.Controls);
                 break;
             case "Exit":
                 System.Environment.Exit(1);
@@ -40,7 +44,6 @@ public partial class _Default : Page
         }
 
     }
-    int turn_count = 0;
     protected void button_Click(object sender, EventArgs e)
     {
         Button b = (Button)sender;
@@ -68,16 +71,22 @@ public partial class _Default : Page
         if ((C1.Text == C2.Text) && (C2.Text == C3.Text) && (!C1.Enabled))
             there_is_a_winner = true;
         //Vertical check
-        if ((A1.Text == B1.Text) && (B1.Text == C1.Text) && (!A1.Enabled))
+        else if ((A1.Text == B1.Text) && (B1.Text == C1.Text) && (!A1.Enabled))
             there_is_a_winner = true;
-        if ((A2.Text == B2.Text) && (B2.Text == C2.Text) && (!A2.Enabled))
+        else if ((A2.Text == B2.Text) && (B2.Text == C2.Text) && (!A2.Enabled))
             there_is_a_winner = true;
-        if ((A3.Text == B3.Text) && (B3.Text == C3.Text) && (!A3.Enabled))
+        else if ((A3.Text == B3.Text) && (B3.Text == C3.Text) && (!A3.Enabled))
             there_is_a_winner = true;
+        //diagonal check
+        else if ((A1.Text == B2.Text) && (B2.Text == C3.Text) && (!A1.Enabled))
+            there_is_a_winner = true;
+        else if ((A3.Text == B2.Text) && (B2.Text == C1.Text) && (!C1.Enabled))
+            there_is_a_winner = true;
+
 
         if (there_is_a_winner)
         {
-            disableButtons();
+            DisableForm(Page.Controls);
             String winner = "";
             if (turn)
                 winner = "0";
@@ -89,19 +98,44 @@ public partial class _Default : Page
         {
             if (counter == 9)
                 TextBox2.Text = "Draw!!!";
+            
         }
     }
-    private void disableButtons()
+    private void DisableForm(ControlCollection ctrls)
     {
-        try
+        foreach (Control ctrl in ctrls)
         {
-            foreach (Control c in Controls)
-            {
-                Button b = (Button)c;
-                b.Enabled = false;
-            }
+            if (ctrl is TextBox)
+                ((TextBox)ctrl).Enabled = false;
+            if (ctrl is Button)
+                ((Button)ctrl).Enabled = false;
+
+            DisableForm(ctrl.Controls);
         }
-        catch { }
+    }
+    private void EnableForm(ControlCollection ctrls)
+    {
+        foreach (Control ctrl in ctrls)
+        {
+            if (ctrl is TextBox)
+                ((TextBox)ctrl).Enabled = true;
+            if (ctrl is Button)
+                ((Button)ctrl).Enabled = true;
+
+            EnableForm(ctrl.Controls);
+        }
+    }
+    private void NewGameForm(ControlCollection ctrls)
+    {
+        foreach (Control ctrl in ctrls)
+        {
+            if (ctrl is TextBox)
+                ((TextBox)ctrl).Text = "";
+            if (ctrl is Button)
+                ((Button)ctrl).Text = null;
+
+            NewGameForm(ctrl.Controls);
+        }
     }
 
 }
