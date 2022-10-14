@@ -57,6 +57,7 @@ public partial class _Default : Page
         b.Enabled = false;
         TextBox1.Text = counter.ToString();
 
+
         checkWinner();
     }
     private void checkWinner()
@@ -89,16 +90,24 @@ public partial class _Default : Page
             DisableForm(Page.Controls);
             String winner = "";
             if (turn)
-                winner = "0";
+            {
+                winner = "O";
+                ocount.Text = (Int32.Parse(ocount.Text) + 1).ToString();
+            }
             else
+            {
                 winner = "X";
+                xcount.Text = (Int32.Parse(xcount.Text) + 1).ToString();
+            }
             TextBox2.Text = winner + " Win!!!";
         }//end if
         else
         {
             if (counter == 9)
+            {
                 TextBox2.Text = "Draw!!!";
-            
+                drawcount.Text = (Int32.Parse(drawcount.Text) + 1).ToString();
+            }
         }
     }
     private void DisableForm(ControlCollection ctrls)
@@ -137,5 +146,6 @@ public partial class _Default : Page
             NewGameForm(ctrl.Controls);
         }
     }
+   
 
 }
