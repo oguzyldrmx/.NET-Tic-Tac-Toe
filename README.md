@@ -2,7 +2,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Tic-Tac-Toe](https://user-images.githubusercontent.com/63080047/195446222-edb201b6-de00-4caf-afdf-b0eac7ba5f16.gif)
+![Tic-Tac-Toe](https://user-images.githubusercontent.com/63080047/195856450-dfea3d31-8414-4d95-a4bf-98cadca682df.gif)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
